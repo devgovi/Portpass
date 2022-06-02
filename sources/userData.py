@@ -1,7 +1,7 @@
 # Govine-J
 # GITS
 # 2022-06-01
-from databaseCon import portpass_db_con as con
+from connectDB import portpass_db_con as con
 from passGen import pass_generator
 
 
