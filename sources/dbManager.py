@@ -4,7 +4,7 @@
 from connectDB import portpass_db_con
 from datetime import datetime
 
-CURRENT_DATE = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+MODIFIED_DATE = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 # Invoke the database connection. -START
 con = portpass_db_con()
 # Invoke the database connection. -END
@@ -49,7 +49,7 @@ class DBManager:
         if self.exists() is True:
             con.cursor().execute(f"UPDATE userData SET username='{new_username}' WHERE username='{self.username}' AND website='{self.website}'")
             # Update the dateModified field.
-            con.cursor().execute(f"UPDATE userData SET dateModified='{CURRENT_DATE}' WHERE username='{self.username}' AND website='{self.website}'")
+            con.cursor().execute(f"UPDATE userData SET dateModified='{MODIFIED_DATE}' WHERE username='{self.username}' AND website='{self.website}'")
             con.commit()
             print("Username updated.")
         else:
@@ -66,7 +66,7 @@ class DBManager:
         if self.exists() is True:
             con.cursor().execute(f"UPDATE userData SET website='{new_website}' WHERE username='{self.username}' AND website='{self.website}'")
             # Update the dateModified field.
-            con.cursor().execute(f"UPDATE userData SET dateModified='{CURRENT_DATE}' WHERE username='{self.username}' AND website='{self.website}'")
+            con.cursor().execute(f"UPDATE userData SET dateModified='{MODIFIED_DATE}' WHERE username='{self.username}' AND website='{self.website}'")
             con.commit()
             print("Website updated.")
         else:
@@ -83,7 +83,7 @@ class DBManager:
         if self.exists() is True:
             con.cursor().execute(f"UPDATE userData SET password='{new_password}' WHERE username='{self.username}' AND website='{self.website}'")
             # Update the dateModified field.
-            con.cursor().execute(f"UPDATE userData SET dateModified='{CURRENT_DATE}' WHERE username='{self.username}' AND website='{self.website}'")
+            con.cursor().execute(f"UPDATE userData SET dateModified='{MODIFIED_DATE}' WHERE username='{self.username}' AND website='{self.website}'")
             con.commit()
             print("Password updated.")
         else:
@@ -100,7 +100,7 @@ class DBManager:
         if self.exists() is True:
             con.cursor().execute(f"UPDATE userData SET notes='{new_note}' WHERE username='{self.username}' AND website='{self.website}'")
             # Update the dateModified field.
-            con.cursor().execute(f"UPDATE userData SET dateModified='{CURRENT_DATE}' WHERE username='{self.username}' AND website='{self.website}'")
+            con.cursor().execute(f"UPDATE userData SET dateModified='{MODIFIED_DATE}' WHERE username='{self.username}' AND website='{self.website}'")
             con.commit()
             print("Note updated.")
         else:
@@ -117,7 +117,7 @@ class DBManager:
         if self.exists() is True:
             con.cursor().execute(f"UPDATE userData SET tags='{new_tag}' WHERE username='{self.username}' AND website='{self.website}'")
             # Update the dateModified field.
-            con.cursor().execute(f"UPDATE userData SET dateModified='{CURRENT_DATE}' WHERE username='{self.username}' AND website='{self.website}'")
+            con.cursor().execute(f"UPDATE userData SET dateModified='{MODIFIED_DATE}' WHERE username='{self.username}' AND website='{self.website}'")
             con.commit()
             print("Tag updated.")
         else:
