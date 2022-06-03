@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "Portpass"
 version = "0.1.0"
-description = "Portpass is a simple GUI password manager, which use a local encrypted database."
+description = "Portpass is a simple GUI password manager, which use a local sqlite database."
 authors = ["govine j"]
 
 [tool.poetry.dependencies]
