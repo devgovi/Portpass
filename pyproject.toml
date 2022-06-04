@@ -6,6 +6,7 @@ authors = ["govine j"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+cryptography = "^37.0.2"
 
 [tool.poetry.dev-dependencies]
 
