@@ -9,14 +9,14 @@ from dbManager import del_all_data
 
 
 # Create a new user data object.
-facebook = UserData("Govine-J", "12345678", "facebook.com", "Hello world", "#social #media")
+# facebook = UserData("Govine-J", "12345678", "facebook.com", "Hello world", "#social #media")
 
-instagram = UserData("King Dod", "mySafePass", "instagram.com", "Hello world this is a note", "#social #media")
+# instagram = UserData("King Dod", "mySafePass", "instagram.com", "Hello world this is a note", "#social #media")
 
-gmail = UserData("Jamaica", "12345678", "gmail.com", "Hello world", "#email #work #media")
+# gmail = UserData("Jamaica", "12345678", "gmail.com", "Hello world", "#email #work #media")
 
-linkedin = UserData("China", "12345678", "linkedin.com", "This is an note", "#social #media")
-figma = UserData("Africa", "12345678", "figma.com", "Create cool UI.", "#social #media #design")
+# linkedin = UserData("China", "12345678", "linkedin.com", "This is an note", "#social #media")
+# figma = UserData("Africa", "12345678", "figma.com", "Create cool UI.", "#social #media #design")
 
 
 # ADD DATA TO DATABASE - userData table. - START
@@ -50,7 +50,7 @@ figma = UserData("Africa", "12345678", "figma.com", "Create cool UI.", "#social 
 
 
 # UPDATE USERNAME - userData table. - START
-# db(facebook.get_username(), facebook.get_website()).edit_username("New Govine-J")
+db('New Govine-J', 'facebook.com').edit_username("Govine-J")
 # UPDATE USERNAME - userData table. - END
 
 
