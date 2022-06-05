@@ -1,8 +1,9 @@
 # Govine-J
 # GITS
 # 2022-06-02
-from connectDB import portpass_db_con
+from test_connectDB import portpass_db_con
 from datetime import datetime
+import os
 
 MODIFIED_DATE = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 # Invoke the database connection. -START
@@ -76,7 +77,7 @@ class DBManager:
             new_password: new password of the userId.
         """
         if self.exists() is True:
-            con.cursor().execute(f"UPDATE userData SET password='{new_password}' WHERE userId='{self.user_id}'")
+            con.cursor().execute(f"UPDATE userData SET password='{new_password}' WHERE userId='{self.userId}'")
             # Update the dateModified field.
             con.cursor().execute(f"UPDATE userData SET dateModified='{MODIFIED_DATE}' WHERE userId='{self.userId}'")
             con.commit()
@@ -93,9 +94,9 @@ class DBManager:
             new_note: new note of the userId.
         """
         if self.exists() is True:
-            con.cursor().execute(f"UPDATE userData SET notes='{new_note}' WHERE userId='{self.user_id}'")
+            con.cursor().execute(f"UPDATE userData SET notes='{new_note}' WHERE userId='{self.userId}'")
             # Update the dateModified field.
-            con.cursor().execute(f"UPDATE userData SET dateModified='{MODIFIED_DATE}' WHERE userId='{self.user_id}'")
+            con.cursor().execute(f"UPDATE userData SET dateModified='{MODIFIED_DATE}' WHERE userId='{self.userId}'")
             con.commit()
             print("Note updated.")
         else:
@@ -110,9 +111,9 @@ class DBManager:
             new_tag: new tag of the userId.
         """
         if self.exists() is True:
-            con.cursor().execute(f"UPDATE userData SET tags='{new_tag}' WHERE userId='{self.user_id}'")
+            con.cursor().execute(f"UPDATE userData SET tags='{new_tag}' WHERE userId='{self.userId}'")
             # Update the dateModified field.
-            con.cursor().execute(f"UPDATE userData SET dateModified='{MODIFIED_DATE}' WHERE userId='{self.user_id}'")
+            con.cursor().execute(f"UPDATE userData SET dateModified='{MODIFIED_DATE}' WHERE userId='{self.userId}'")
             con.commit()
             print("Tag updated.")
         else:
@@ -127,7 +128,7 @@ class DBManager:
             list: user data from the database.
         """
         if self.exists() is True:
-            data = con.cursor().execute(f"SELECT * FROM userData WHERE userId='{self.user_id}'")
+            data = con.cursor().execute(f"SELECT * FROM userData WHERE userId='{self.userId}'")
             return data.fetchall()
         else:
             print('Unable to get specified data.')
@@ -138,7 +139,7 @@ class DBManager:
         Delete user data from the database.
         """
         if self.exists() is True:
-            con.cursor().execute(f"DELETE FROM userData WHERE userId='{self.user_id}'")
+            con.cursor().execute(f"DELETE FROM userData WHERE userId='{self.userId}'")
             con.commit()
             print("Data deleted.")
         else:
@@ -153,8 +154,13 @@ def del_all_data() -> None:
     
     con.cursor().execute("DELETE FROM userData")
     if con.cursor().fetchall() is not None:
-        con.commit()
-        print("All data deleted.")
+        # Delete the userId.txt file.
+        try:
+            if os.path.exists('test/database/userId.txt'):
+                os.remove('test/database/userId.txt')
+        finally:
+            con.commit()
+            print("All data deleted.")
     else:
         print("No data found.")
 

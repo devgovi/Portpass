@@ -2,7 +2,7 @@
 # GITS
 # 2022-06-01
 # Use to initialize the database tables.
-from connectDB import portpass_db_con as con
+from test_connectDB import portpass_db_con as con
 
 
 def init_table(con):

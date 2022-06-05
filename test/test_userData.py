@@ -2,7 +2,7 @@
 # GITS
 # 2022-06-01
 from datetime import datetime
-from connectDB import portpass_db_con 
+from test_connectDB import portpass_db_con 
 
 
 CURRENT_DATE = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  
@@ -39,10 +39,12 @@ class UserData:
         self.tags = tags
         # create user id for each entry in the database.
         try:
-            with open("sources/database/userId.txt", "r") as f:
+            with open("test/database/userId.txt", "r") as f:
                 self.user_id = int(f.read())
             self.insert_data()
         except FileNotFoundError:
+            with open('test/database/userId.txt', 'w') as f:
+                f.write('0')
             self.user_id = 0
             self.insert_data()
     
@@ -64,7 +66,7 @@ class UserData:
     
     def insert_data(self) -> None:
         # write the pervious user id to the userId.txt file.
-        with open("sources/database/userId.txt", "w") as f:
+        with open("test/database/userId.txt", "w") as f:
             f.write(str(self.user_id + 1))
         user_id = self.user_id
         username = self.username
