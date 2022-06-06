@@ -41,6 +41,7 @@ from test_passGen import pass_generator as pass_gen
 # paypal = UserData('RuddyWang', pass_gen(8,3,5), 'www.paypal.com',
 #                   'This is my paypal account.',
 #                   '#paypal #payment #money #paymentGateway')
+# discord = UserData('goviwang', pass_gen(8,3,5), None)
 # Insert a new user into the database. - END
 
 
@@ -71,19 +72,19 @@ from test_passGen import pass_generator as pass_gen
 
 
 # Updating a specific password entry from the database. - START
-db(1).edit_password('newPassword')
+# db(1).edit_password('newPassword')
 # Updating a specific password entry from the database. - END
 
 
 # Updating a specific website entry from the database. - START
-db(2).edit_website('www.newWebsite.com')
+# db(2).edit_website('www.newWebsite.com')
 # Updating a specific website entry from the database. - END
 
 
 # Updating a specific note entry from the database. - START
-db(3).edit_note('This is my new note.')
+# db(3).edit_note('This is my new note.')
 # Updating a specific note entry from the database. - END
 
 # Updating a specific tag entry from the database. - START
-db(6).edit_tag('#newTag')
+# db(6).edit_tag('#newTag')
 # Updating a specific tag entry from the database. - END

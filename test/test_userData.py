@@ -12,7 +12,7 @@ con = portpass_db_con()
 class UserData:
     """
     Create a user data object, then inserts the data into
-    the portpass database atr the userData table.
+    the portpass database at the userData table.
     
     NOTE:
     Before any data is inserted, the program query with the 
@@ -21,7 +21,7 @@ class UserData:
     database.
     
     """
-    def __init__(self, username:str, password:str, website:str, notes:str, tags:str):
+    def __init__(self, username:str, password:str, website:str, notes:str=None, tags:str=None):  
         """
         Initialize the AddData class.
         
@@ -37,16 +37,7 @@ class UserData:
         self.website = website
         self.notes = notes
         self.tags = tags
-        # create user id for each entry in the database.
-        try:
-            with open("test/database/userId.txt", "r") as f:
-                self.user_id = int(f.read())
-            self.insert_data()
-        except FileNotFoundError:
-            with open('test/database/userId.txt', 'w') as f:
-                f.write('0')
-            self.user_id = 0
-            self.insert_data()
+        self.create_entry_id()
     
     
     
@@ -62,6 +53,21 @@ class UserData:
             return True
         return False
 
+
+    def valid_data(self) -> bool:
+        """
+        Validate the data before inserting into the database.
+        """
+        if self.username == '' or self.username is None:
+            print("Unable to add data. Please fill in username field.")
+            return False
+        elif self.password == '' or self.password is None:
+            print("Unable to add data. Please fill in password field.")
+            return False
+        elif self.website == '' or self.website is None:
+            print("Unable to add data. Please fill in website field.")
+            return False
+        return True
     
     
     def insert_data(self) -> None:
@@ -84,5 +90,19 @@ class UserData:
             print(f'Unable to add data. The userId: {self.user_id} already exists.')
 
 
-
+    def create_entry_id(self) -> None:
+        """ 
+        Create a id for each entry,
+        then insert the data into the database. 
+        """
+        if  self.valid_data() is True:
+            try:
+                with open("test/database/userId.txt", "r") as f:
+                    self.user_id = int(f.read())
+                self.insert_data()
+            except FileNotFoundError:
+                with open('test/database/userId.txt', 'w') as f:
+                    f.write('0')
+                self.user_id = 0
+                self.insert_data()
 

@@ -1,6 +1,7 @@
 # Govine-J
 # GITS
 # 2022-06-02
+from hashlib import new
 from test_connectDB import portpass_db_con
 from datetime import datetime
 import os
@@ -41,15 +42,18 @@ class DBManager:
         Args:
             new_username: new username of the user.
         """
-        
-        if self.exists() is True:
-            con.cursor().execute(f"UPDATE userData SET username='{new_username}' WHERE userId='{self.userId}'")
-            # Update the dateModified field.
-            con.cursor().execute(f"UPDATE userData SET dateModified='{MODIFIED_DATE}' WHERE userId='{self.userId}'")
-            con.commit()
-            print("Username updated.")
+        # validate data:
+        if new_username == '' or new_username is None:
+            print("Please enter a valid username.")
         else:
-            print("Unable to update username.")
+            if self.exists() is True:
+                con.cursor().execute(f"UPDATE userData SET username='{new_username}' WHERE userId='{self.userId}'")
+                # Update the dateModified field.
+                con.cursor().execute(f"UPDATE userData SET dateModified='{MODIFIED_DATE}' WHERE userId='{self.userId}'")
+                con.commit()
+                print("Username updated.")
+            else:
+                print("Unable to update username.")
 
 
     def edit_website(self, new_website:str) -> None:
@@ -59,14 +63,17 @@ class DBManager:
         Args:
             new_website: new website of the user.
         """
-        if self.exists() is True:
-            con.cursor().execute(f"UPDATE userData SET website='{new_website}' WHERE userId='{self.userId}'")
-            # Update the dateModified field.
-            con.cursor().execute(f"UPDATE userData SET dateModified='{MODIFIED_DATE}' WHERE userId='{self.userId}'")
-            con.commit()
-            print("Website updated.")
+        if new_website != '' or new_website is not None:
+            if self.exists() is True:
+                con.cursor().execute(f"UPDATE userData SET website='{new_website}' WHERE userId='{self.userId}'")
+                # Update the dateModified field.
+                con.cursor().execute(f"UPDATE userData SET dateModified='{MODIFIED_DATE}' WHERE userId='{self.userId}'")
+                con.commit()
+                print("Website updated.")
+            else:
+                print("Unable to update website.")
         else:
-            print("Unable to update website.")
+            print("Please enter a valid website.")
 
 
     def edit_password(self, new_password:str) -> None:
@@ -76,15 +83,17 @@ class DBManager:
         Args:
             new_password: new password of the userId.
         """
-        if self.exists() is True:
-            con.cursor().execute(f"UPDATE userData SET password='{new_password}' WHERE userId='{self.userId}'")
-            # Update the dateModified field.
-            con.cursor().execute(f"UPDATE userData SET dateModified='{MODIFIED_DATE}' WHERE userId='{self.userId}'")
-            con.commit()
-            print("Password updated.")
+        if new_password != '' or new_password is not None:
+            if self.exists() is True:
+                con.cursor().execute(f"UPDATE userData SET password='{new_password}' WHERE userId='{self.userId}'")
+                # Update the dateModified field.
+                con.cursor().execute(f"UPDATE userData SET dateModified='{MODIFIED_DATE}' WHERE userId='{self.userId}'")
+                con.commit()
+                print("Password updated.")
+            else:
+                print("Unable to update password.")
         else:
-            print("Unable to update password.")
-
+            print("Please enter a valid password.")
 
     def edit_note(self, new_note:str) -> None:
         """
