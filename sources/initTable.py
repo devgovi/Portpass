@@ -13,7 +13,7 @@ def init_table(con):
     """
     cursorObj = con.cursor()
 
-    cursorObj.execute("CREATE TABLE userData( userId int, username text, password text, website text, notes text, tags text, dateCreated date, dateModified date)")
+    cursorObj.execute("CREATE TABLE userData( entryId int, username text, password text, website text, notes text, tags text, dateCreated date, dateModified date)")
 
     con.commit()
 

@@ -1,11 +1,10 @@
 # Govine-J
 # GITS
 # 2022-06-01
-from datetime import datetime
-from test_connectDB import portpass_db_con 
+from app_config import (USER_ID_FILE, CURRENT_DATE)
+from test_connectDB import portpass_db_con
 
 
-CURRENT_DATE = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  
 
 con = portpass_db_con()
 
@@ -72,7 +71,7 @@ class UserData:
     
     def insert_data(self) -> None:
         # write the pervious user id to the userId.txt file.
-        with open("test/database/userId.txt", "w") as f:
+        with open(USER_ID_FILE, "w") as f:
             f.write(str(self.user_id + 1))
         user_id = self.user_id
         username = self.username
@@ -97,11 +96,11 @@ class UserData:
         """
         if  self.valid_data() is True:
             try:
-                with open("test/database/userId.txt", "r") as f:
+                with open(USER_ID_FILE, "r") as f:
                     self.user_id = int(f.read())
                 self.insert_data()
             except FileNotFoundError:
-                with open('test/database/userId.txt', 'w') as f:
+                with open(USER_ID_FILE, 'w') as f:
                     f.write('0')
                 self.user_id = 0
                 self.insert_data()

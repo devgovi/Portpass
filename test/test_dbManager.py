@@ -1,12 +1,13 @@
 # Govine-J
 # GITS
 # 2022-06-02
-from hashlib import new
+import pandas as pd
 from test_connectDB import portpass_db_con
-from datetime import datetime
 import os
+from app_config import ( DB_PATH, USER_ID_FILE,
+                        EXPORTED_FILE, MODIFIED_DATE)
 
-MODIFIED_DATE = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
 # Invoke the database connection. -START
 con = portpass_db_con()
 # Invoke the database connection. -END
@@ -48,6 +49,7 @@ class DBManager:
         else:
             if self.exists() is True:
                 con.cursor().execute(f"UPDATE userData SET username='{new_username}' WHERE userId='{self.userId}'")
+
                 # Update the dateModified field.
                 con.cursor().execute(f"UPDATE userData SET dateModified='{MODIFIED_DATE}' WHERE userId='{self.userId}'")
                 con.commit()
@@ -63,7 +65,9 @@ class DBManager:
         Args:
             new_website: new website of the user.
         """
-        if new_website != '' or new_website is not None:
+        if new_website == '' or new_website is None:
+            print("Please enter a valid website.")
+        else:
             if self.exists() is True:
                 con.cursor().execute(f"UPDATE userData SET website='{new_website}' WHERE userId='{self.userId}'")
                 # Update the dateModified field.
@@ -72,8 +76,6 @@ class DBManager:
                 print("Website updated.")
             else:
                 print("Unable to update website.")
-        else:
-            print("Please enter a valid website.")
 
 
     def edit_password(self, new_password:str) -> None:
@@ -83,7 +85,9 @@ class DBManager:
         Args:
             new_password: new password of the userId.
         """
-        if new_password != '' or new_password is not None:
+        if new_password == '' or new_password is None:
+            print("Please enter a valid password.")
+        else:
             if self.exists() is True:
                 con.cursor().execute(f"UPDATE userData SET password='{new_password}' WHERE userId='{self.userId}'")
                 # Update the dateModified field.
@@ -92,8 +96,7 @@ class DBManager:
                 print("Password updated.")
             else:
                 print("Unable to update password.")
-        else:
-            print("Please enter a valid password.")
+
 
     def edit_note(self, new_note:str) -> None:
         """
@@ -156,6 +159,29 @@ class DBManager:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+def update_userId_file(userId:int) -> None:
+    """
+    Update the userId file.
+
+    Args:
+        userId: new userId.
+    """
+    with open(USER_ID_FILE, 'w') as f:
+        f.write(str(userId))
+
+
 def del_all_data() -> None:
     """
     Delete all user data from the database.
@@ -165,8 +191,8 @@ def del_all_data() -> None:
     if con.cursor().fetchall() is not None:
         # Delete the userId.txt file.
         try:
-            if os.path.exists('test/database/userId.txt'):
-                os.remove('test/database/userId.txt')
+            if os.path.exists(USER_ID_FILE):
+                os.remove(USER_ID_FILE)
         finally:
             con.commit()
             print("All data deleted.")
@@ -186,3 +212,73 @@ def get_all_data() -> list:
             return all_user.fetchall()
         else:
             print("No data found.")
+
+
+def export_data() -> None:
+    """
+    Export all user data from the database to a csv file.
+    """
+    if os.path.exists(DB_PATH):    
+        df = pd.read_sql_query("SELECT * FROM userData", con)
+        df.to_csv(EXPORTED_FILE, index=False)
+        print("Data exported.")
+    else:
+        print("Unable to export data.")
+
+
+def import_data() -> None:
+    """
+    Append data from userData.csv to the database and update the userId file. 
+    """
+    if os.path.exists(DB_PATH):
+        
+        # Load the data from the csv file.- START
+        df = pd.read_csv(EXPORTED_FILE)
+        # Load the data from the csv file.- END
+        
+        # Check is database is empty. - START
+        data = con.cursor().execute("SELECT * FROM userData")
+        if data.fetchone() is None:
+        # Check is database is empty. - END
+            
+            # Writing the data to the database. - START
+            df.to_sql('userData', con, if_exists='append', index=False)
+            print("Data imported.")
+            # Writing the data to the database. - END
+            
+            # Get the last userId. - START
+            last_userId = df.userId.max()
+            # Get the last userId. - END
+            
+            # Update the userId.txt file. - START
+            update_userId_file(last_userId)
+            # Update the userId.txt file. - END
+        
+        else:
+            # Read the last row of the database. - START
+            userId = con.cursor().execute("SELECT userId FROM userData ORDER BY userId DESC LIMIT 1")
+            current_userId = int(userId.fetchone()[0])
+            # Read the last row of the database. - END
+            
+            # Update the userId. - START
+            new_userId = 1          
+            for index in df.index:
+                if index >= current_userId:
+                    df.loc[index, 'userId'] = new_userId + current_userId
+                else:
+                    df.loc[index, 'userId'] = current_userId + new_userId
+                    new_userId += 1
+                # Update the userId. - END
+                
+            
+            # Append the data to the database. - START
+            df.to_sql('userData', con, if_exists='append', index=False)
+            print("Data imported.")
+            # Append the data to the database. - END
+        
+            # Update the userId.txt file. - START
+            update_userId_file(current_userId + new_userId)
+            # Update the userId.txt file. - END
+            
+    else:
+        print("Unable to import data.")

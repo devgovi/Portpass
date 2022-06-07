@@ -1,13 +1,12 @@
 # Govine-J
 # GITS
-# 2022-06-04
-# Put together all the functions in the main.py file.
-# Test the functions in the main.py file.
-from test_userData import UserData
-from test_dbManager import DBManager as db
-from test_dbManager import (del_all_data, get_all_data,
+# 2022-06-06
+
+from userData import UserData
+from dbManager import DBManager as db
+from dbManager import (del_all_data, get_all_data,
                             export_data, import_data)
-from test_passGen import pass_generator as pass_gen
+from passGen import pass_generator as pass_gen
 
 
 
@@ -44,6 +43,7 @@ from test_passGen import pass_generator as pass_gen
 #                   '#paypal #payment #money #paymentGateway')
 
 # discord = UserData('goviwang', pass_gen(8,3,5), 'www.discord.com')
+# portpass = UserData('admin', pass_gen(9,3,5), 'www.portpass.com', 'This is my portpass account.', '#portpass #passwordManager #safety #security')
 # Insert a new user into the database. - END
 
 
@@ -84,12 +84,12 @@ from test_passGen import pass_generator as pass_gen
 
 
 # Updating a specific note entry from the database. - START
-# db(3).edit_note('This is my new note.')
+# db(7).edit_note('This is my new note.')
 # Updating a specific note entry from the database. - END
 
 
 # Updating a specific tag entry from the database. - START
-# db(6).edit_tag('#newTag')
+# db(7).edit_tag('#newTag')
 # Updating a specific tag entry from the database. - END
 
 
@@ -98,6 +98,6 @@ from test_passGen import pass_generator as pass_gen
 # Export the database to a csv file. - END
 
 
-#Import the database from a csv file. - START
+# Import the database from a csv file. - START
 # import_data()
 # Import the database from a csv file. - END

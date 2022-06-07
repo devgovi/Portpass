@@ -4,13 +4,16 @@
 import sqlite3
 from sqlite3 import Error
 
+from app_config import (DB_PATH, LOG_FILE, CURRENT_DATE)
+
+
 
 def portpass_db_con() -> sqlite3.Connection:
     """ create a database connection to the SQLite database"""
     try:
-        return sqlite3.connect('test/database/test_portpass.db')
+        return sqlite3.connect(DB_PATH)
     except Error as e:
-        with open('sources/log/error.log', 'a') as f:
-            f.writelines(f'{e}\n')
+        with open(LOG_FILE, 'a') as f:
+            f.writelines(f'{e} || {CURRENT_DATE}\n')
 
 
