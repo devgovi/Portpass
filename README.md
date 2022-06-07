@@ -1,12 +1,19 @@
 
 # Portpass
 
-Portpass is a portable password manager, which uses a local SQLite database that can be exported to a CSV file.
+Portpass is a portable password manager, which uses a local SQLite<br>database that can be exported to a CSV file.
 
-You are also able to import data with the accepted format into the application.
+You are also able to import data with the accepted format<br>into the application.
 
 The data format headers should be as follow:
-entryId, username, password, website, notes, tags, dateCreated, dateModified.
+- entryId, 
+- username, 
+- password, 
+- website, 
+- notes, 
+- tags, 
+- dateCreated, 
+- dateModified.
 
 ## NOTE:
 
