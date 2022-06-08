@@ -8,6 +8,7 @@
         "goviwang",
         "inplace",
         "jnbslive",
-        "jnlive"
+        "jnlive",
+        "kivy"
     ]
 }

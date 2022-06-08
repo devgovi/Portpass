@@ -8,6 +8,8 @@ authors = ["govine j"]
 python = "^3.10"
 cryptography = "^37.0.2"
 pandas = "^1.4.2"
+Kivy = {extras = ["base"], version = "^2.1.0"}
+Kivy-examples = "^2.1.0"
 
 [tool.poetry.dev-dependencies]
 
