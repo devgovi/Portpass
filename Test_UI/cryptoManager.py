@@ -1,4 +1,10 @@
+# Govine-J
+# GITS
+# 2022-06-07
+# Call when lunching the application for the first time.
+
 from cryptography.fernet import Fernet
+from app_config import MASTER_KEY_FILE
 
 
 
@@ -8,7 +14,7 @@ def create_key() -> None:
     """
     key = Fernet.generate_key()
     # Create and store the key into the key folder.
-    with open('sources/key/master.key', 'wb') as file:
+    with open(MASTER_KEY_FILE, 'wb') as file:
         file.write(key)
     print("Master key created.")
     
@@ -21,7 +27,7 @@ def read_key() -> bytes:
     Returns:
         bytes: The key.
     """
-    with open('sources/key/master.key', 'rb') as file:
+    with open(MASTER_KEY_FILE, 'rb') as file:
         key = file.read()
     return key
 

@@ -3,12 +3,14 @@
         "Portpass"
     ],
     "cSpell.words": [
+        "customtkinter",
         "Fernet",
         "Govi",
         "goviwang",
         "inplace",
         "jnbslive",
         "jnlive",
-        "kivy"
+        "kivy",
+        "relx"
     ]
 }

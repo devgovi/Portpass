@@ -12,6 +12,7 @@ from app_config import ( DB_PATH, USER_ID_FILE,
 con = portpass_db_con()
 # Invoke the database connection. -END
 
+
 class DBManager:
     """
     Manage the modification of the database.
@@ -22,6 +23,18 @@ class DBManager:
             entryId: The unique id for each entry.
         """
         self.entryId = entryId
+    
+    
+    def get_last_entryId(self) -> int:
+        """
+        Return the last entryId.
+
+        Returns:
+            int: entryId of the data entered.
+        """
+        # data = con.cursor().execute("SELECT entryId FROM userData ORDER BY entryId DESC LIMIT 1")
+        
+        
         
     def exists(self) -> bool:
         """
