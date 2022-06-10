@@ -2,7 +2,7 @@
 # GITS
 # 2022-06-07
 # Call when lunching the application for the first time.
-
+from cryptoManager import create_key
 from app_config import MASTER_PASS_FILE
 from cryptoManager import encrypt_password, read_key
 
@@ -19,6 +19,8 @@ def isSecure(masterPass:str) -> bool:
         bool: True if the password is secure, False otherwise.
     """
     if len(masterPass) >= 8:
+        # create the master key
+        create_key()
         return True
     else:
         return False

@@ -16,7 +16,7 @@ def create_key() -> None:
     # Create and store the key into the key folder.
     with open(MASTER_KEY_FILE, 'wb') as file:
         file.write(key)
-    print("Master key created.")
+    # print("Master key created.")
     
 # create_key()
 
